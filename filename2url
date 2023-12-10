@@ -1,0 +1,16 @@
+#!/usr/bin/env perl
+
+use File::Basename;
+
+my $prefix = "http://localhost:8356/";
+
+while(<>) {
+	my ($key, $filename) = split /\t/;
+
+	chomp($filename);
+	chomp($key);
+
+	my $url = "${prefix}${filename}";
+
+	print "${filename} ${url}\n";
+}

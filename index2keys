@@ -1,0 +1,15 @@
+#!/usr/bin/env php
+<?php
+
+# Using PHP for now because issue with json decoding and unicode
+
+$index_contents = json_decode(file_get_contents("php://stdin"), true);
+// Return failure!
+foreach($index_contents as $index => $entry) {
+	if($entry['IsDir'] || !array_key_exists("Hashes", $entry)) {
+		continue;
+	}
+	$md5 = isset($entry['Hashes']['MD5']) ? $entry['Hashes']['MD5'] : $entry['Hashes']['md5']; // rclone versions vary this
+	$annex_key = "MD5-s". $entry['Size']. "--". $md5;
+	print "{$annex_key}\t". $entry['Path']. "\n";
+}

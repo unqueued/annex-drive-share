@@ -1,0 +1,19 @@
+#!/usr/bin/env perl
+
+use File::Basename;
+use File::Path qw/make_path/;
+# use File::Symlink::Relative;
+use URI::Escape;
+
+my $prefix = "http://localhost:8356/";
+
+while(<>) {
+	my ($key, $filename) = split /\t/;
+
+	chomp($filename);
+	chomp($key);
+
+	my $url = "${prefix}${filename}";
+
+	print "${key} ${url}\n";
+}

@@ -1,0 +1,20 @@
+#!/usr/bin/env perl
+
+use File::Basename;
+use File::Path qw/make_path/;
+# use File::Symlink::Relative;
+
+while(<>) {
+	my ($filename, $key, $object) = split /\t/;
+
+	chomp($filename);
+	chomp($key);
+	chomp($object);
+
+	make_path(dirname($filename));
+
+	# print "ln -sfr \'${object}\' \'${filename}\' \n";
+	system("ln", "-sf", "${object}", "${filename}");
+
+
+}
